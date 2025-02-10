@@ -7,3 +7,21 @@ body {
   margin: 0;
   background-color: #f4f4f4;
 }
+
+.xo-container {
+  max-width: 500px;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  grid-gap: 10px;
+  background-color: #eb6363;
+  border: 5px solid #d08080;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 146, 146, 0.774);
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #f09e9e;
+}
