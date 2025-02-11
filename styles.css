@@ -1,11 +1,13 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f4f4f4;
+  background-color: #1e1e2e;
+  color: #cdd6f4;
 }
 
 .xo-container {
@@ -13,27 +15,33 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 100px);
   grid-template-rows: repeat(3, 100px);
-  grid-gap: 10px;
-  background-color: #eb6363;
-  border: 5px solid #d08080;
+  grid-gap: 5px;
+  padding: 10px;
+  background-color: #313244;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 146, 146, 0.774);
 }
 
 .cell {
   width: 100px;
   height: 100px;
-  background-color: #f09e9e;
+  background-color: #45475a;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  cursor: pointer;
+  font-size: 2.5rem;
+  border-radius: 8px;
+  transition: background 0.2s ease-in-out;
+}
+
+.cell:hover {
+  background: #585b70;
 }
 
 .x-mark {
-  color: red;
+  color: #f38ba8;
 }
 
 .o-mark {
-  color: yellow;
+  color: #89b4fa;
 }
