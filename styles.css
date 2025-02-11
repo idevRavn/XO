@@ -63,3 +63,25 @@ body {
 .o-mark {
   color: #89b4fa;
 }
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background: #a6e3a1;
+  color: #1e1e2e;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.2s ease-in-out;
+}
+
+button:hover {
+  background: #94e2d5;
+}
