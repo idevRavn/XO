@@ -26,6 +26,7 @@ const GameController = (() => {
   let gameState = false;
   let players = [];
   let currentPlayerIndex = 0;
+  const currentPlayerText = document.querySelector(".current-player");
 
   const winningCombos = [
     [0, 1, 2], // Horizontal
@@ -47,7 +48,6 @@ const GameController = (() => {
   };
 
   const playerTurn = (index) => {
-    const currentPlayerText = document.querySelector(".current-player");
     if (!gameState) return;
     GameBoard.setMarker(index, players[currentPlayerIndex].mark);
     DisplayController.updateGameBoard();
@@ -55,6 +55,7 @@ const GameController = (() => {
       gameState = false;
       currentPlayerText.textContent = `${players[currentPlayerIndex].name} Wins!`;
       currentPlayerText.textContent += " Click to restart";
+      currentPlayerText.style.color = "#a6e3a1";
       return;
     }
     currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
@@ -70,7 +71,14 @@ const GameController = (() => {
     });
   };
 
-  return { startGame, playerTurn };
+  const restartGame = () => {
+    GameBoard.resetBoard();
+    DisplayController.updateGameBoard();
+    currentPlayerText.textContent = `Player 1's Turn`;
+    GameController.startGame();
+  };
+
+  return { startGame, playerTurn, restartGame };
 })();
 
 const DisplayController = (() => {
@@ -80,6 +88,7 @@ const DisplayController = (() => {
       GameController.playerTurn(index);
     });
   });
+
   const updateGameBoard = () => {
     const board = GameBoard.getBoard();
     cells.forEach((cell, index) => {
@@ -92,6 +101,11 @@ const DisplayController = (() => {
       }
     });
   };
+
+  const resetButton = document.querySelector(".reset");
+  resetButton.addEventListener("click", () => {
+    GameController.restartGame();
+  });
 
   return { updateGameBoard };
 })();
