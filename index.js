@@ -47,14 +47,18 @@ const GameController = (() => {
   };
 
   const playerTurn = (index) => {
+    const currentPlayerText = document.querySelector(".current-player");
     if (!gameState) return;
     GameBoard.setMarker(index, players[currentPlayerIndex].mark);
     DisplayController.updateGameBoard();
     if (checkWin()) {
       gameState = false;
+      currentPlayerText.textContent = `${players[currentPlayerIndex].name} Wins!`;
+      currentPlayerText.textContent += " Click to restart";
       return;
     }
     currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
+    currentPlayerText.textContent = `${players[currentPlayerIndex].name}'s Turn`;
   };
 
   const checkWin = () => {
