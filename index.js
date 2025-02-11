@@ -79,7 +79,13 @@ const DisplayController = (() => {
   const updateGameBoard = () => {
     const board = GameBoard.getBoard();
     cells.forEach((cell, index) => {
+      cell.classList.remove("x-mark", "o-mark");
       cell.textContent = board[index];
+      if (board[index] === "X") {
+        cell.classList.add("x-mark");
+      } else {
+        cell.classList.add("o-mark");
+      }
     });
   };
 

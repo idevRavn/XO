@@ -24,4 +24,16 @@ body {
   width: 100px;
   height: 100px;
   background-color: #f09e9e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.x-mark {
+  color: red;
+}
+
+.o-mark {
+  color: yellow;
 }
