@@ -61,3 +61,6 @@ Contributions are welcome! If you have ideas for improvement or want to add feat
 ## License
 
 This project is licensed under the [MIT License](LICENSE), allowing for collaboration and sharing.
+
+---
+Enjoy playing **XO Battle**! 🏆
