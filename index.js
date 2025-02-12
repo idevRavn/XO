@@ -56,6 +56,7 @@ const GameController = (() => {
       currentPlayerText.textContent = `${players[currentPlayerIndex].name} Wins!`;
       currentPlayerText.textContent += " Click to restart";
       currentPlayerText.style.color = "#a6e3a1";
+      confettiEffect();
       return;
     }
     currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
@@ -68,6 +69,14 @@ const GameController = (() => {
         (index) =>
           GameBoard.getBoard()[index] === players[currentPlayerIndex].mark
       );
+    });
+  };
+
+  const confettiEffect = () => {
+    confetti({
+      particleCount: 200,
+      spread: 100,
+      origin: { y: 0.8 },
     });
   };
 
