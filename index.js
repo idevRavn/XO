@@ -120,11 +120,11 @@ const DisplayController = (() => {
 
       GameController.startGame(
         {
-          name: player1Name.trim() === "" ? "Player 1" : player1Name,
+          name: player1Name,
           sign: player1Sign,
         },
         {
-          name: player2Name.trim() === "" ? "Player 2" : player2Name,
+          name: player2Name,
           sign: player2Sign,
         }
       );
@@ -139,7 +139,7 @@ const DisplayController = (() => {
 
       const resetButton = document.querySelector(".reset");
       resetButton.addEventListener("click", () => {
-        GameController.resetGame(player1Name);
+        GameController.resetGame(player1Name === "" ? "Player 1" : player1Name);
       });
     });
   };
@@ -165,6 +165,8 @@ const DisplayController = (() => {
   };
 
   const updatePlayerInfo = (players) => {
+    if (players[0].name === "") players[0].name = "Player 1";
+    if (players[1].name === "") players[1].name = "Player 2";
     document.querySelector(".player-1-name").textContent = players[0].name;
     document.querySelector(".player-1-sign").textContent = players[0].sign;
     document.querySelector(".player-2-name").textContent = players[1].name;
