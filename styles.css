@@ -10,6 +10,13 @@ body {
   color: #cdd6f4;
 }
 
+.formScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .formScreen form {
   display: flex;
   flex-direction: column;
