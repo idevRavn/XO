@@ -7,19 +7,19 @@ const GameBoard = (() => {
     board = Array(9).fill("");
   };
 
-  const setMarker = (index, marker) => {
+  const setSign = (index, sign) => {
     if (board[index] === "") {
-      board[index] = marker;
+      board[index] = sign;
       return true;
     }
     return false;
   };
 
-  return { getBoard, resetBoard, setMarker };
+  return { getBoard, resetBoard, setSign };
 })();
 
-const Players = (name, mark) => {
-  return { name, mark };
+const Players = (name, sign) => {
+  return { name, sign };
 };
 
 const GameController = (() => {
@@ -39,17 +39,22 @@ const GameController = (() => {
     [2, 4, 6],
   ];
 
-  const startGame = () => {
+  const startGame = (player1, player2) => {
     gameState = true;
     currentPlayerIndex = 0;
-    players = [Players("Player 1", "X"), Players("Player 2", "O")];
+    players = [
+      Players(player1.name, player1.sign),
+      Players(player2.name, player2.sign),
+    ];
     GameBoard.resetBoard();
     DisplayController.updateGameBoard();
+    DisplayController.updatePlayerInfo(players);
+    currentPlayerText.textContent = `${players[currentPlayerIndex].name}'s Turn`;
   };
 
   const playerTurn = (index) => {
     if (!gameState) return;
-    GameBoard.setMarker(index, players[currentPlayerIndex].mark);
+    GameBoard.setSign(index, players[currentPlayerIndex].sign);
     DisplayController.updateGameBoard();
     if (checkWin()) {
       gameState = false;
@@ -67,7 +72,7 @@ const GameController = (() => {
     return winningCombos.some((combo) => {
       return combo.every(
         (index) =>
-          GameBoard.getBoard()[index] === players[currentPlayerIndex].mark
+          GameBoard.getBoard()[index] === players[currentPlayerIndex].sign
       );
     });
   };
@@ -80,14 +85,14 @@ const GameController = (() => {
     });
   };
 
-  const restartGame = () => {
+  const resetGame = (player1Name) => {
     GameBoard.resetBoard();
     DisplayController.updateGameBoard();
-    currentPlayerText.textContent = `Player 1's Turn`;
+    currentPlayerText.textContent = `${player1Name}'s Turn`;
     GameController.startGame();
   };
 
-  return { startGame, playerTurn, restartGame };
+  return { startGame, playerTurn, resetGame };
 })();
 
 const DisplayController = (() => {
@@ -117,6 +122,11 @@ const DisplayController = (() => {
       gameboardScreenStyle.style.alignItems = "center";
       gameboardScreenStyle.style.justifyContent = "space-between";
       gameboardScreenStyle.style.width = "100%";
+
+      const resetButton = document.querySelector(".reset");
+      resetButton.addEventListener("click", () => {
+        GameController.resetGame(player1Name);
+      });
     });
   };
 
@@ -130,22 +140,24 @@ const DisplayController = (() => {
   const updateGameBoard = () => {
     const board = GameBoard.getBoard();
     cells.forEach((cell, index) => {
-      cell.classList.remove("x-mark", "o-mark");
+      cell.classList.remove("x-sign", "o-sign");
       cell.textContent = board[index];
       if (board[index] === "X") {
-        cell.classList.add("x-mark");
+        cell.classList.add("x-sign");
       } else {
-        cell.classList.add("o-mark");
+        cell.classList.add("o-sign");
       }
     });
   };
 
-  const resetButton = document.querySelector(".reset");
-  resetButton.addEventListener("click", () => {
-    GameController.restartGame();
-  });
+  const updatePlayerInfo = (players) => {
+    document.querySelector(".player-1-name").textContent = players[0].name;
+    document.querySelector(".player-1-sign").textContent = players[0].sign;
+    document.querySelector(".player-2-name").textContent = players[1].name;
+    document.querySelector(".player-2-sign").textContent = players[1].sign;
+  };
 
-  return { start, updateGameBoard };
+  return { start, updateGameBoard, updatePlayerInfo };
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
