@@ -91,6 +91,35 @@ const GameController = (() => {
 })();
 
 const DisplayController = (() => {
+  const start = () => {
+    const playerForm = document.getElementById("playerForm");
+    playerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const player1Name = document.getElementById("player1Name").value;
+      const player1Sign = document.getElementById("player1Sign").value;
+      const player2Name = document.getElementById("player2Name").value;
+      const player2Sign = document.getElementById("player2Sign").value;
+
+      if (player1Sign === player2Sign) {
+        alert("Players must choose different signs.");
+        return;
+      }
+
+      GameController.startGame(
+        { name: player1Name, sign: player1Sign },
+        { name: player2Name, sign: player2Sign }
+      );
+
+      const gameboardScreenStyle = document.querySelector(".gameboardScreen");
+      document.querySelector(".formScreen").style.display = "none";
+      gameboardScreenStyle.style.display = "flex";
+      gameboardScreenStyle.style.flexDirection = "column";
+      gameboardScreenStyle.style.alignItems = "center";
+      gameboardScreenStyle.style.justifyContent = "space-between";
+      gameboardScreenStyle.style.width = "100%";
+    });
+  };
+
   const cells = document.querySelectorAll(".cell");
   cells.forEach((cell, index) => {
     cell.addEventListener("click", () => {
@@ -116,7 +145,9 @@ const DisplayController = (() => {
     GameController.restartGame();
   });
 
-  return { updateGameBoard };
+  return { start, updateGameBoard };
 })();
 
-GameController.startGame();
+document.addEventListener("DOMContentLoaded", () => {
+  DisplayController.start();
+});
