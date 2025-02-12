@@ -92,7 +92,15 @@ const GameController = (() => {
     GameController.startGame();
   };
 
-  return { startGame, playerTurn, resetGame };
+  const restartGame = () => {
+    GameBoard.resetBoard();
+    DisplayController.updateGameBoard();
+    const gameboardScreenStyle = document.querySelector(".gameboardScreen");
+    document.querySelector(".formScreen").style.display = "flex";
+    gameboardScreenStyle.style.display = "none";
+  };
+
+  return { startGame, playerTurn, resetGame, restartGame };
 })();
 
 const DisplayController = (() => {
@@ -111,8 +119,14 @@ const DisplayController = (() => {
       }
 
       GameController.startGame(
-        { name: player1Name, sign: player1Sign },
-        { name: player2Name, sign: player2Sign }
+        {
+          name: player1Name.trim() === "" ? "Player 1" : player1Name,
+          sign: player1Sign,
+        },
+        {
+          name: player2Name.trim() === "" ? "Player 2" : player2Name,
+          sign: player2Sign,
+        }
       );
 
       const gameboardScreenStyle = document.querySelector(".gameboardScreen");
@@ -157,7 +171,12 @@ const DisplayController = (() => {
     document.querySelector(".player-2-sign").textContent = players[1].sign;
   };
 
-  return { start, updateGameBoard, updatePlayerInfo };
+  const restartButton = document.querySelector(".restart");
+  restartButton.addEventListener("click", () => {
+    GameController.restartGame();
+  });
+
+  return { start, updateGameBoard, updatePlayerInfo, restartButton };
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
