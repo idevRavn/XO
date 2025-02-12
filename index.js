@@ -137,6 +137,14 @@ const DisplayController = (() => {
       gameboardScreenStyle.style.justifyContent = "space-between";
       gameboardScreenStyle.style.width = "100%";
 
+      if (player1Sign === "X" && player2Sign === "O") {
+        document.querySelector(".player-1-sign").classList.add("x-sign");
+        document.querySelector(".player-2-sign").classList.add("o-sign");
+      } else {
+        document.querySelector(".player-1-sign").classList.add("o-sign");
+        document.querySelector(".player-2-sign").classList.add("x-sign");
+      }
+
       const resetButton = document.querySelector(".reset");
       resetButton.addEventListener("click", () => {
         GameController.resetGame(player1Name === "" ? "Player 1" : player1Name);
